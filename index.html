@@ -789,6 +789,209 @@ try {
             chatMessages.appendChild(bubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+<script>
+        const escapeSound = document.getElementById('escape-sound');
+        const begoneSound = document.getElementById('begone-sound');
+        const judgmentSound = document.getElementById('judgment-sound');
+        const uselessSound = document.getElementById('useless-sound');
+        const thyEndSound = document.getElementById('thy-end-sound');
+
+        const portalContent = document.getElementById('portalContent');
+        const auditPortalContent = document.getElementById('auditPortalContent');
+        const captchaModal = document.getElementById('captchaModal');
+        const captchaBox = document.getElementById('captchaBox');
+        const captchaStatusIcon = document.getElementById('captchaStatusIcon');
+        const captchaPrompt = document.getElementById('captchaPrompt');
+        const midasChatWindow = document.getElementById('midasChatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+
+        let selectedTiles = [];
+        let currentDisputePath = true;
+
+        // --- SISYPHUS LOGIC ---
+        function triggerEscape() {
+            if (escapeSound) { escapeSound.currentTime = 0; escapeSound.play().catch(e => {}); }
+            alert("Sisyphus Prime says: YOU CAN'T ESCAPE!");
+        }
+
+        // --- INTERACTIVE SYSTEM ASSESSMENTS ---
+        function evaluateLoan(isEligible) {
+            if (isEligible) {
+                portalContent.innerHTML = `
+                    <div class="result-screen pass">
+                        <h4>APPLICATION APPROVED</h4>
+                        <div class="quote" style="border-left: 3px solid var(--midas-gold);">"KEEP 'EM COMING!"</div>
+                    </div>`;
+            } else {
+                if (begoneSound) { begoneSound.currentTime = 0; begoneSound.play().catch(e => {}); }
+                portalContent.innerHTML = `
+                    <div class="result-screen fail">
+                        <h4>BE GONE!</h4>
+                    </div>`;
+            }
+        }
+
+        function triggerJudgmentSound() {
+            if (judgmentSound) { judgmentSound.currentTime = 0; judgmentSound.play().catch(e => {}); }
+            alert("Minos Prime says: THY CRIME IS EXISTENCE!");
+        }
+
+        function openCaptcha(isRighteous) {
+            currentDisputePath = isRighteous;
+            selectedTiles = [];
+            document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
+            captchaBox.style.border = "3px solid #333";
+            captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(5).png";
+            captchaModal.style.display = "flex";
+        }
+
+        function toggleTile(element, index) {
+            if (selectedTiles.includes(index)) {
+                selectedTiles = selectedTiles.filter(i => i !== index);
+                element.classList.remove('selected');
+            } else {
+                selectedTiles.push(index);
+                element.classList.add('selected');
+            }
+        }
+
+        function validateCaptcha() {
+            const requiredTiles = [0, 1, 2, 3, 5, 6, 7, 8];
+            const hasDecoy = selectedTiles.includes(4);
+            const isPerfectMatch = requiredTiles.every(t => selectedTiles.includes(t)) && !hasDecoy && selectedTiles.length === requiredTiles.length;
+
+            if (isPerfectMatch) {
+                captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(4).png";
+                captchaBox.style.border = "3px solid var(--minos-blue)";
+                setTimeout(() => {
+                    captchaModal.style.display = "none";
+                    processTribunalVerdict(currentDisputePath);
+                }, 800);
+            } else {
+                if (uselessSound) { uselessSound.currentTime = 0; uselessSound.play().catch(e => {}); }
+                captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(3).png";
+                captchaBox.style.border = "3px solid #ff4a4a";
+                selectedTiles = [];
+                document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
+                setTimeout(() => { captchaModal.style.display = "none"; }, 1500);
+            }
+        }
+
+        function processTribunalVerdict(isRighteous) {
+            if (isRighteous) {
+                if (thyEndSound) { thyEndSound.currentTime = 0; thyEndSound.play().catch(e => {}); }
+                auditPortalContent.innerHTML = `<div class="result-screen mercy"><h4>FEE WAIVED OUT OF MERCY</h4></div>`;
+            } else {
+                if (judgmentSound) { judgmentSound.currentTime = 0; judgmentSound.play().catch(e => {}); }
+                auditPortalContent.innerHTML = `<div class="result-screen fail"><h4>JUDGEMENT!</h4></div>`;
+            }
+        }
+
+        // --- DEEPSEEK CORE INTERFACE LOGIC ---
+        function toggleMidasChat() {
+            if (midasChatWindow.style.display === "flex") {
+                midasChatWindow.style.display = "none";
+            } else {
+                midasChatWindow.style.display = "flex";
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                if (!getSavedApiKey()) {
+                    appendMessage("VAULT SHIELD ACTIVE: Secure DeepSeek Token (sk-...) required. Click the ⚙️ icon above to configure communication lines.", "system-status");
+                }
+            }
+        }
+
+        function handleChatKey(event) { 
+            if (event.key === 'Enter') sendMidasMessage(); 
+        }
+
+        function getSavedApiKey() { 
+            return localStorage.getItem('midas_hf_token'); 
+        }
+
+        function promptForApiKey() {
+            const token = prompt("Enter thy DeepSeek Secret API Key (sk-...):");
+            if (token) {
+                localStorage.setItem('midas_hf_token', token.trim());
+                appendMessage("CRITICAL CORRIDORS UNLOCKED. DeepSeek platform array online.", "system-status");
+            }
+        }
+
+        async function sendMidasMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            const apiKey = getSavedApiKey();
+            if (!apiKey) {
+                alert("Midas Prime commands: Supply a connection key via the configuration layout first!");
+                promptForApiKey();
+                return;
+            }
+
+            appendMessage(text, 'user');
+            chatInput.value = '';
+            
+            const thinkingBubble = document.createElement('div');
+            thinkingBubble.classList.add('msg', 'midas');
+            thinkingBubble.innerText = "Calculating liquidation liabilities...";
+            chatMessages.appendChild(thinkingBubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            chatSendBtn.disabled = true;
+
+            try {
+                // Official DeepSeek V4-Flash high-speed pipeline
+                const response = await fetch("https://api.deepseek.com/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${apiKey}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-v4-flash",
+                        messages: [
+                            {
+                                role: "system",
+                                content: "You are Midas Prime, the gold-obsessed Chief Financial Officer (CFO) from ULTRAKILL. You talk in an aggressive, grand corporate style. You view human beings entirely through profit margins and asset liquidation. You love 24k solid gold and hate unbillable waste. Respond concisely in character."
+                            },
+                            {
+                                role: "user",
+                                content: text
+                            }
+                        ],
+                        max_tokens: 300
+                    })
+                });
+
+                const result = await response.json();
+                thinkingBubble.remove();
+
+                if (result.choices && result.choices[0]?.message?.content) {
+                    let aiResponse = result.choices[0].message.content.trim();
+                    appendMessage(aiResponse, 'midas');
+                } else if (result.error) {
+                    appendMessage(`INSUFFICIENT CAPITAL: ${result.error.message}`, 'midas');
+                } else {
+                    appendMessage("Transmission corrupted. Financial analysis yielded zero returns.", 'midas');
+                }
+
+            } catch (err) {
+                thinkingBubble.remove();
+                appendMessage("PIPELINE EXPLODED. Verify thy DeepSeek key credentials or network parameters.", "midas");
+                console.error("Midas Error Ledger:", err);
+            } finally {
+                chatSendBtn.disabled = false;
+            }
+        }
+
+        function appendMessage(text, sender) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('msg', sender);
+            bubble.innerText = text;
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     </script>
 </body>
 </html>
