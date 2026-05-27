@@ -716,27 +716,44 @@
 
             chatSendBtn.disabled = true;
 
-            try {
-                // Highly stable free-tier endpoint running Mistral-7B-Instruct-v0.3
-                const response = await fetch("https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3", {
+try {
+                // Swapped to Gemma-2b-it for absolute maximum uptime and compatibility
+                const response = await fetch("https://api-inference.huggingface.co/models/google/gemma-2b-it", {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${apiKey}`,
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        inputs: `<s>[INST] You are Midas Prime, the gold-obsessed Chief Financial Officer (CFO) from ULTRAKILL. You talk in an aggressive, grand corporate style. You view human beings entirely through profit margins and asset liquidation. You love 24k solid gold and hate unbillable waste. Respond concisely in character to this message: ${text} [/INST]`
+                        inputs: "<start_of_turn>user\nYou are Midas Prime, the ruthless, gold-obsessed Chief Financial Officer from ULTRAKILL. You talk like an aggressive corporate over-lord and view humans as liquid assets. Respond to this message in character: " + text + "<end_of_turn>\n<start_of_turn>model\n"
                     })
                 });
 
                 const result = await response.json();
                 thinkingBubble.remove();
 
-                // If the model is cold and booting into server memory, catch it gracefully
+                // Check if the server is just sleeping
                 if (result.estimated_time) {
-                    appendMessage(`SERVER WARMUP: Midas is booting up his spreadsheets. Try again in ${Math.round(result.estimated_time)} seconds.`, 'system-status');
+                    appendMessage(`SERVER WARMUP: Midas is loading his spreadsheets. Retry in ${Math.round(result.estimated_time)} seconds.`, 'system-status');
                     return;
                 }
+
+                let aiResponse = "";
+                if (Array.isArray(result) && result[0]?.generated_text) {
+                    aiResponse = result[0].generated_text.split("<start_of_turn>model\n").pop().trim();
+                } else if (result.error) {
+                    aiResponse = `INSUFFICIENT CAPITAL: ${result.error}`;
+                } else {
+                    aiResponse = "Transmission corrupted. Financial analysis yielded zero returns.";
+                }
+
+                appendMessage(aiResponse, 'midas');
+
+            } catch (err) {
+                thinkingBubble.remove();
+                appendMessage("PIPELINE EXPLODED. Check browser console (F12) for error signature.", "midas");
+                console.error("Midas Error Ledger:", err);
+            }
 
                 let aiResponse = "";
                 if (Array.isArray(result) && result[0]?.generated_text) {
