@@ -717,41 +717,44 @@
             chatSendBtn.disabled = true;
 
 try {
-                // Swapped to Gemma-2b-it for absolute maximum uptime and compatibility
-                const response = await fetch("https://api-inference.huggingface.co/models/google/gemma-2b-it", {
+                // Connecting directly to DeepSeek's high-speed V4-Flash engine
+                const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${apiKey}`,
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        inputs: "<start_of_turn>user\nYou are Midas Prime, the ruthless, gold-obsessed Chief Financial Officer from ULTRAKILL. You talk like an aggressive corporate over-lord and view humans as liquid assets. Respond to this message in character: " + text + "<end_of_turn>\n<start_of_turn>model\n"
+                        model: "deepseek-chat", // Automatically routes to the fast V4-Flash model
+                        messages: [
+                            {
+                                role: "system",
+                                content: "You are Midas Prime, the gold-obsessed Chief Financial Officer (CFO) from ULTRAKILL. You talk in an aggressive, grand corporate style. You view human beings entirely through profit margins and asset liquidation. You love 24k solid gold and hate unbillable waste. Respond concisely in character."
+                            },
+                            {
+                                role: "user",
+                                content: text
+                            }
+                        ],
+                        max_tokens: 300 // Keeps responses punchy and saves your free tokens!
                     })
                 });
 
                 const result = await response.json();
                 thinkingBubble.remove();
 
-                // Check if the server is just sleeping
-                if (result.estimated_time) {
-                    appendMessage(`SERVER WARMUP: Midas is loading his spreadsheets. Retry in ${Math.round(result.estimated_time)} seconds.`, 'system-status');
-                    return;
-                }
-
-                let aiResponse = "";
-                if (Array.isArray(result) && result[0]?.generated_text) {
-                    aiResponse = result[0].generated_text.split("<start_of_turn>model\n").pop().trim();
+                if (result.choices && result.choices[0]?.message?.content) {
+                    let aiResponse = result.choices[0].message.content.trim();
+                    appendMessage(aiResponse, 'midas');
                 } else if (result.error) {
-                    aiResponse = `INSUFFICIENT CAPITAL: ${result.error}`;
+                    appendMessage(`INSUFFICIENT CAPITAL: ${result.error.message}`, 'midas');
                 } else {
-                    aiResponse = "Transmission corrupted. Financial analysis yielded zero returns.";
+                    appendMessage("Transmission corrupted. Financial analysis yielded zero returns.", 'midas');
                 }
-
-                appendMessage(aiResponse, 'midas');
 
             } catch (err) {
                 thinkingBubble.remove();
-                appendMessage("PIPELINE EXPLODED. Check browser console (F12) for error signature.", "midas");
+                appendMessage("PIPELINE EXPLODED. Verify thy DeepSeek key or internet connection throughput.", "midas");
                 console.error("Midas Error Ledger:", err);
             }
 
