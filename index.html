@@ -15,576 +15,159 @@
             --text-muted: #8a8a93;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); padding-bottom: 100px; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        .ticker { background: #000; color: var(--midas-gold); padding: 0.5rem; text-align: center; font-family: monospace; border-bottom: 1px solid #333; font-size: 0.85rem; }
 
-        /* Market Ticker */
-        .ticker {
-            background: #000;
-            color: var(--midas-gold);
-            padding: 0.5rem;
-            font-family: monospace;
-            font-size: 0.9rem;
-            border-bottom: 1px solid #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        header { padding: 4rem 2rem; text-align: center; border-bottom: 2px solid #222; background: #111116; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--midas-gold); }
+        header p { color: var(--text-muted); }
 
-        .ticker-content {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 25s linear infinite;
-        }
+        .management-team { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .manager-card { background: var(--panel-bg); border-radius: 8px; padding: 1.5rem; border: 1px solid #222; }
+        .card-minos { border-top: 4px solid var(--minos-blue); }
+        .card-sisyphus { border-top: 4px solid var(--sisyphus-orange); }
+        .card-midas { border-top: 4px solid var(--midas-gold); }
+        .role { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); }
+        .name { font-size: 1.5rem; margin: 0.5rem 0; font-weight: bold; }
+        .quote { font-style: italic; background: rgba(0,0,0,0.4); padding: 0.5rem; border-left: 3px solid var(--text-muted); margin-top: 0.5rem; font-size: 0.9rem; }
 
-        @keyframes marquee {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
-        }
-
-        /* Hero Header */
-        header {
-            background: linear-gradient(135deg, rgba(19, 19, 26, 0.95), rgba(10, 10, 12, 0.9)), 
-                        radial-gradient(circle at 80% 20%, rgba(255, 123, 0, 0.15), transparent 40%),
-                        radial-gradient(circle at 20% 80%, rgba(79, 168, 255, 0.15), transparent 40%);
-            padding: 6rem 2rem;
-            text-align: center;
-            border-bottom: 2px solid #222;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--minos-blue), var(--midas-gold), var(--sisyphus-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Corporate Board Grid */
-        .management-team {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: -3rem auto 4rem;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .manager-card {
-            background: var(--panel-bg);
-            border: 1px solid #222;
-            border-radius: 12px;
-            padding: 2.5rem;
-            transition: transform 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .manager-card:hover { transform: translateY(-5px); }
-        .card-minos { border-top: 5px solid var(--minos-blue); }
-        .card-sisyphus { border-top: 5px solid var(--sisyphus-orange); }
-        .card-midas { border-top: 5px solid var(--midas-gold); }
-
-        .role {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .name {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .quote {
-            font-style: italic;
-            color: #fff;
-            background: rgba(0,0,0,0.3);
-            padding: 0.75rem;
-            border-left: 3px solid;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .card-minos .quote { border-left-color: var(--minos-blue); }
-        .card-sisyphus .quote { border-left-color: var(--sisyphus-orange); }
-        .card-midas .quote { border-left-color: var(--midas-gold); }
-
-        /* Dynamic Working Layout Sections */
-        .financial-products {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        h2 {
-            font-size: 2.2rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .grid-products {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        @media (max-width: 768px) { .grid-products { grid-template-columns: 1fr; } }
-
-        .product-box {
-            background: var(--panel-bg);
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .rate-highlight {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--midas-gold);
-            margin: 1rem 0;
-        }
-
-        /* Interactive Portals Styling */
-        .portal-layout {
-            background: var(--panel-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            position: relative;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
-            margin-bottom: 3rem;
-        }
-
+        .financial-products { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .portal-layout { background: var(--panel-bg); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid #333; }
         .loan-portal { border: 2px solid var(--sisyphus-orange); }
         .audit-portal { border: 2px solid var(--minos-blue); }
-
-        .portal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .loan-portal h3 { color: var(--sisyphus-orange); text-transform: uppercase; }
-        .audit-portal h3 { color: var(--minos-blue); text-transform: uppercase; }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 2rem;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .close-btn:hover { color: #ff4a4a; }
-        .instruction { margin-bottom: 2rem; }
-
-        /* Buttons & Selections */
-        .options-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        @media (max-width: 600px) { .options-container { grid-template-columns: 1fr; } }
-
-        .option-card {
-            background: #0d0d11;
-            border: 1px solid #2a2a35;
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: left;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .option-card strong { margin-bottom: 0.5rem; }
-        .option-card span { font-size: 0.9rem; color: var(--text-muted); }
-
-        .button-wrong:hover { border-color: #ff4a4a; background: rgba(255, 74, 74, 0.05); }
-        .button-right:hover { border-color: var(--sisyphus-orange); background: rgba(255, 123, 0, 0.05); }
         
-        .button-audit:hover { border-color: var(--minos-blue); background: rgba(79, 168, 255, 0.05); }
-        .button-crimes:hover { border-color: #ff4a4a; background: rgba(255, 74, 74, 0.05); }
-
-        .result-screen { text-align: center; padding: 2rem 0; }
-        .result-screen h4 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; }
-        .result-screen .quote { max-width: 500px; margin: 1.5rem auto; text-align: left; }
+        .portal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem; }
+        .options-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
         
-        .result-screen.fail h4 { color: #ff4a4a; }
-        .result-screen.pass h4 { color: var(--midas-gold); }
-        .result-screen.mercy h4 { color: var(--minos-blue); }
+        .option-card { background: #0d0d11; border: 1px solid #333; padding: 1rem; border-radius: 6px; color: #fff; cursor: pointer; text-align: left; width: 100%; font-size: 0.95rem; }
+        .option-card:hover { border-color: #fff; background: #161622; }
 
-        /* --- CAPTCHA POPUP MODAL STYLING --- */
-      .captcha-modal {
-            display: none !important; /* Force it to completely vanish from the layer stack */
-            position: fixed;
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: -9999; /* Push it completely behind the website pages by default */
-            justify-content: center;
-            align-items: center;
-            pointer-events: none; /* Make it completely transparent to mouse clicks */
-        }
+        /* Fixed Invisible Wall Protection */
+        .captcha-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
+        .captcha-box { background: #111116; border: 2px solid #333; padding: 1.5rem; border-radius: 8px; text-align: center; max-width: 340px; }
+        .captcha-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 1rem 0; }
+        .captcha-tile { width: 80px; height: 80px; background: #333; border-radius: 4px; cursor: pointer; border: 2px solid transparent; }
+        .captcha-tile.selected { border-color: var(--minos-blue); background: #555; }
+        .captcha-verify-btn { background: var(--minos-blue); color: #000; border: none; width: 100%; padding: 0.75rem; font-weight: bold; border-radius: 4px; cursor: pointer; }
 
-        .captcha-box {
-            background: #111116;
-            border: 3px solid #333;
-            border-radius: 12px;
-            width: 380px;
-            padding: 1.5rem;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
-            text-align: center;
-        }
-
-        .captcha-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #000;
-            padding: 0.75rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            border: 1px solid #222;
-        }
-
-        .captcha-header span { font-weight: bold; font-size: 0.85rem; letter-spacing: 1px; }
-        .status-icon { width: 32px; height: 32px; object-fit: contain; }
-
-        .captcha-instruction { font-size: 0.9rem; margin-bottom: 1rem; color: #fff; }
-        .captcha-instruction strong { color: var(--minos-blue); }
-
-        /* The Grid */
-        .captcha-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            margin-bottom: 1.25rem;
-            background: #000;
-            padding: 4px;
-            border-radius: 4px;
-        }
-
-        .captcha-tile {
-            width: 100px;
-            height: 100px;
-            background-color: #222;
-            background-size: 300px 300px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: border-color 0.1s;
-        }
-
-        .tile-0 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: 0 0; }
-        .tile-1 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: -100px 0; }
-        .tile-2 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: -200px 0; }
-        .tile-3 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: 0 -100px; }
-        .tile-4 { background-image: url('https://file.garden/adLOry2aS3ylDKjJ/image%20(5).png'); background-size: cover; }
-        .tile-5 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: -200px -100px; }
-        .tile-6 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: 0 -200px; }
-        .tile-7 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: -100px -200px; }
-        .tile-8 { background-image: url('http://googleusercontent.com/image_collection/image_retrieval/6815419711882849260_0'); background-position: -200px -200px; }
-
-        .captcha-tile.selected { border-color: var(--minos-blue); box-shadow: inset 0 0 10px rgba(79, 168, 255, 0.5); }
-
-        .captcha-verify-btn {
-            background: var(--minos-blue);
-            color: #000;
-            border: none;
-            width: 100%;
-            padding: 0.75rem;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .captcha-verify-btn:hover { background: #7fc2ff; }
-
-        /* --- MIDAS LIVE AI CHATBOT STYLING --- */
-        .midas-chat-trigger {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 70px;
-            height: 70px;
-            background: #111116;
-            border: 2px solid var(--midas-gold);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            transition: transform 0.2s ease;
-        }
-        .midas-chat-trigger:hover { transform: scale(1.05); }
-        .midas-trigger-icon { width: 85%; height: 85%; object-fit: contain; }
-
-        .chat-window {
-            display: none;
-            position: fixed;
-            bottom: 110px;
-            right: 25px;
-            width: 380px;
-            height: 500px;
-            background: #111115;
-            border: 2px solid var(--midas-gold);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            z-index: 2000;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: #000;
-            border-bottom: 1px solid #222;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .chat-header img { width: 35px; height: 35px; object-fit: contain; border: 1px solid var(--midas-gold); border-radius: 50%; }
-        .chat-header-info { flex: 1; }
-        .chat-header-info h5 { color: var(--midas-gold); font-size: 1rem; }
-        .chat-header-info span { font-size: 0.75rem; color: var(--text-muted); }
+        /* Floating Engine UI */
+        .midas-chat-trigger { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--panel-bg); border: 2px solid var(--midas-gold); border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; z-index: 5000; font-size: 1.5rem; }
+        .chat-window { display: none; position: fixed; bottom: 90px; right: 20px; width: 340px; height: 450px; background: #111115; border: 2px solid var(--midas-gold); border-radius: 8px; z-index: 5000; flex-direction: column; overflow: hidden; }
+        .chat-header { background: #000; padding: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+        .chat-messages { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #0d0d12; font-size: 0.9rem; }
         
-        .key-config-btn { background: none; border: none; color: var(--midas-gold); cursor: pointer; font-size: 1.1rem; padding: 0 5px; }
-        .chat-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+        .msg { max-width: 85%; padding: 0.6rem; border-radius: 6px; }
+        .msg.midas { background: rgba(255, 215, 0, 0.1); align-self: flex-start; border: 1px solid rgba(255,215,0,0.2); }
+        .msg.user { background: #22222b; align-self: flex-end; }
+        .msg.system-status { background: rgba(255,255,255,0.05); align-self: center; font-size: 0.75rem; color: var(--text-muted); text-align: center; border: 1px dashed #444; width: 90%; }
 
-        .chat-messages {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: radial-gradient(circle at center, #16161f 0%, #0d0d12 100%);
-        }
-
-        .msg { max-width: 85%; padding: 0.75rem; border-radius: 8px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
-        .msg.midas { background: rgba(255, 215, 0, 0.08); border: 1px solid rgba(255, 215, 0, 0.25); color: #fff; align-self: flex-start; border-top-left-radius: 0; }
-        .msg.user { background: #22222b; color: #fff; align-self: flex-end; border-top-right-radius: 0; }
-        .msg.system-status { background: rgba(255, 74, 74, 0.1); border: 1px solid rgba(255, 74, 74, 0.3); color: #ff7676; align-self: center; font-family: monospace; font-size: 0.8rem; text-align: center; }
-
-        .chat-input-area {
-            display: flex;
-            background: #000;
-            border-top: 1px solid #222;
-            padding: 0.5rem;
-        }
-        .chat-input-area input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 0.75rem; border-radius: 6px; outline: none; }
-        .chat-input-area input:focus { border-color: var(--midas-gold); }
-        .chat-send-btn { background: var(--midas-gold); color: #000; border: none; padding: 0 1rem; margin-left: 5px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-
-        footer {
-            background: #050507;
-            padding: 4rem 2rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid #222;
-        }
-        .disclaimer-text { max-width: 800px; margin: 0 auto; text-align: justify; }
+        .chat-input-area { display: flex; background: #000; padding: 0.5rem; border-top: 1px solid #222; }
+        .chat-input-area input { flex: 1; background: #111; border: 1px solid #333; color: #fff; padding: 0.5rem; border-radius: 4px; outline: none; }
+        .chat-send-btn { background: var(--midas-gold); color: #000; border: none; padding: 0 0.75rem; margin-left: 4px; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="ticker">
-        <div class="ticker-content">
-            ⚡ MARKET WATCH: BLOOD COIN (+4.2%) // DIS MUNICIPAL BONDS (-12.5%) // LUST LAYER REAL ESTATE: BOOMING // CHIEF FINANCIAL OFFICER MIDAS DECLARES: "LIQUIDATE COSTS!" // SECURITIES GUARDED BY PANOPTICON SYSTEMS ⚡
-        </div>
+        ⚡ PROTOCOL ONLINE // HIGH-YIELD ACCOUNTING FRAMEWORK REGISTERED ⚡
     </div>
 
     <header>
         <h1>PRIME SANCTUM & SAVINGS</h1>
-        <p>A premier multi-layer financial institution where your debt isn't just a basic liability—it's an eternal struggle.</p>
+        <p>Your debt is an eternal corporate structure.</p>
     </header>
 
-    <main>
-        <section class="management-team">
+    <main class="financial-products">
+        
+        <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
             <div class="manager-card card-minos">
                 <div class="role">Branch Manager</div>
                 <div class="name">Minos Prime</div>
-                <div class="quote">"Thy overdraft fees are cut apart! Act with justice, and thy interest shall flourish."</div>
-                <p>Oversees daily checking accounts and consumer outreach. Passionate about account holder rights and reforming the credit metrics of the Lust Layer.</p>
+                <p>Consumer accounts audit line management.</p>
             </div>
-
             <div class="manager-card card-sisyphus">
                 <div class="role">Investment Director</div>
                 <div class="name">Sisyphus Prime</div>
-                <div class="quote">"A visitor? No, an investor! Keep the capital coming! The grind never ends!"</div>
-                <p>Manages high-risk portfolios and aggressive asset growth. Believes that building capital is a continuous uphill race. Coffee breaks are strictly forbidden.</p>
+                <p>High-risk asset distribution matrix control.</p>
             </div>
-
             <div class="manager-card card-midas">
                 <div class="role">Chief Financial Officer</div>
                 <div class="name">Midas Prime</div>
-                <div class="quote">"Insolvent! The chart must ascend. Turn thy physical flesh into liquid assets."</div>
-                <p>Controls master economic protocol from the upper gilded complex. Focuses on scaling high margins through definitive system authority.</p>
+                <p>Master economic protocol director.</p>
             </div>
         </section>
 
-        <section class="financial-products">
-            <h2>Our Premier Financial Products</h2>
-            <div class="grid-products">
-                <div class="product-box">
-                    <h3>Judgement High-Yield Savings</h3>
-                    <div class="rate-highlight">7.4% APY</div>
-                    <p>A high-yield deposit tool driven by focus and willpower. Minos Prime secures your growth margins through calculated protection models.</p>
-                </div>
-
-                <div class="product-box">
-                    <h3>The Endless Boulder Mortgages</h3>
-                    <div class="rate-highlight">0% Down*</div>
-                    <p>Sisyphus Prime offers property options tailored to optimize personal endurance. Zero up-front deposit required, but final contract logs weigh 4,000 lbs.</p>
+        <div class="portal-layout loan-portal">
+            <div class="portal-header">
+                <h3 style="color: var(--sisyphus-orange);">Risk & Stamina Assessment</h3>
+            </div>
+            <div id="portalContent">
+                <p>Select your operational parameters to qualify for a boulder asset distribution layout:</p>
+                <div class="options-container">
+                    <button class="option-card" onclick="evaluateLoan(false)">Option A: Balance & Regular Intermission Breaks</button>
+                    <button class="option-card" onclick="evaluateLoan(true)">Option B: Constant Upward Trajectory Optimization</button>
                 </div>
             </div>
+        </div>
 
-            <div class="portal-layout loan-portal" id="loanPortal">
-                <div class="portal-header">
-                    <h3>Institutional Risk & Stamina Assessment</h3>
-                    <button class="close-btn" onclick="triggerEscape()">×</button>
-                </div>
-                <div id="portalContent">
-                    <p class="instruction">To verify whether you qualify for an <strong>Endless Boulder Mortgage</strong>, select the strategic operational statement that accurately matches your core financial values:</p>
-                    <div class="options-container">
-                        <button class="option-card button-wrong" onclick="evaluateLoan(false)">
-                            <strong>Option A: Moderated Risk</strong>
-                            <span>"I prefer low-risk mutual funds, protected corporate bonds, and regular brief breaks to protect work-life balance standards."</span>
-                        </button>
-                        <button class="option-card button-right" onclick="evaluateLoan(true)">
-                            <strong>Option B: Constant Optimization</strong>
-                            <span>"I view capital growth as an ongoing upward climb. I do not stop. I do not rest. The boulder and my trajectory are identical."</span>
-                        </button>
-                    </div>
+        <div class="portal-layout audit-portal">
+            <div class="portal-header">
+                <h3 style="color: var(--minos-blue);">Judicial Fee Appeal Dashboard</h3>
+            </div>
+            <div id="auditPortalContent">
+                <p>Select a defense registry parameter to clear out your accrued automated penalty parameters:</p>
+                <div class="options-container">
+                    <button class="option-card" onclick="openCaptcha(true)">Parameter I: Moral Infrastructure Reassignment</button>
+                    <button class="option-card" onclick="openCaptcha(false)">Parameter II: Personal Luxury Surplus Exhaustion</button>
                 </div>
             </div>
-
-            <div class="portal-layout audit-portal" id="auditPortal">
-                <div class="portal-header">
-                    <h3>Tribunal of Judicial Fee Resolution</h3>
-                    <button class="close-btn" onclick="triggerJudgmentSound()">×</button>
-                </div>
-                <div id="auditPortalContent">
-                    <p class="instruction">Appealing an outstanding automated financial penalty requires processing under the eyes of King Minos. Select the defense parameter that details your situational deficit:</p>
-                    <div class="options-container">
-                        <button class="option-card button-audit" onclick="openCaptcha(true)">
-                            <strong>Defense Parameter I: Moral Righteousness</strong>
-                            <span>"My assets were temporarily reassigned without warning to maintain infrastructure development networks inside the Lust Layer cities."</span>
-                        </button>
-                        <button class="option-card button-crimes" onclick="openCaptcha(false)">
-                            <strong>Defense Parameter II: Personal Luxury</strong>
-                            <span>"I suffered an immediate overdraft deficit because I completely drained my liquid checking balances to acquire limited custom gaming plushies."</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
 
     <div class="captcha-modal" id="captchaModal">
-        <div class="captcha-box" id="captchaBox">
-            <div class="captcha-header">
-                <span>SECURITY PROTOCOL: v1.0</span>
-                <img src="https://file.garden/adLOry2aS3ylDKjJ/image%20(5).png" id="captchaStatusIcon" class="status-icon" alt="Status">
-            </div>
-            <p class="captcha-instruction" id="captchaPrompt">Select all squares containing segments of the <strong>FLESH PANOPTICON</strong> to verify thy biological humanity.</p>
-            
+        <div class="captcha-box">
+            <h4 style="margin-bottom: 0.5rem; color: var(--minos-blue);">PANOPTICON PROOF ENTRY</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Toggle all outer boundary quadrants to confirm standard configuration.</p>
             <div class="captcha-grid">
-                <div class="captcha-tile tile-0" onclick="toggleTile(this, 0)"></div>
-                <div class="captcha-tile tile-1" onclick="toggleTile(this, 1)"></div>
-                <div class="captcha-tile tile-2" onclick="toggleTile(this, 2)"></div>
-                <div class="captcha-tile tile-3" onclick="toggleTile(this, 3)"></div>
-                <div class="captcha-tile tile-4" onclick="toggleTile(this, 4)"></div>
-                <div class="captcha-tile tile-5" onclick="toggleTile(this, 5)"></div>
-                <div class="captcha-tile tile-6" onclick="toggleTile(this, 6)"></div>
-                <div class="captcha-tile tile-7" onclick="toggleTile(this, 7)"></div>
-                <div class="captcha-tile tile-8" onclick="toggleTile(this, 8)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 0)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 1)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 2)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 3)"></div>
+                <div class="captcha-tile" style="background: #ff4a4a;" onclick="toggleTile(this, 4)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 5)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 6)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 7)"></div>
+                <div class="captcha-tile" onclick="toggleTile(this, 8)"></div>
             </div>
-            <button class="captcha-verify-btn" onclick="validateCaptcha()">Verify Credentials</button>
+            <button class="captcha-verify-btn" onclick="validateCaptcha()">Verify Integrity</button>
         </div>
     </div>
 
-    <div class="midas-chat-trigger" onclick="toggleMidasChat()">
-        <img src="https://file.garden/adLOry2aS3ylDKjJ/images__75_-removebg-preview%20(1).png" class="midas-trigger-icon" alt="Midas Chat">
-    </div>
+    <div class="midas-chat-trigger" onclick="toggleMidasChat()">💰</div>
 
     <div class="chat-window" id="midasChatWindow">
         <div class="chat-header">
-            <img src="https://file.garden/adLOry2aS3ylDKjJ/images__75_-removebg-preview%20(1).png" alt="Midas Portrait">
-            <div class="chat-header-info">
-                <h5>Midas Prime</h5>
-                <span>Chief Financial Officer (CFO)</span>
+            <strong style="color: var(--midas-gold);">Midas Terminal Array</strong>
+            <div>
+                <button style="background:none; border:none; color:var(--midas-gold); cursor:pointer; margin-right: 8px;" onclick="promptForApiKey()">⚙️</button>
+                <button style="background:none; border:none; color:#888; cursor:pointer; font-size:1.2rem;" onclick="toggleMidasChat()">×</button>
             </div>
-            <button class="key-config-btn" title="Configure Vault Key" onclick="promptForApiKey()">⚙️</button>
-            <button class="chat-close" onclick="toggleMidasChat()">×</button>
         </div>
         <div class="chat-messages" id="chatMessages">
-            <div class="msg midas">State thy identity and thy net liquidity metrics, human. I have precisely zero seconds allocated for unbilled interactions. Speak.</div>
+            <div class="msg midas">State your net ledger assets, creature. Efficiency metrics demand immediate inputs. Speak.</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Submit financial inquiry..." onkeypress="handleChatKey(event)">
+            <input type="text" id="chatInput" placeholder="Input audit command..." onkeypress="handleChatKey(event)">
             <button class="chat-send-btn" id="chatSendBtn" onclick="sendMidasMessage()">Send</button>
         </div>
     </div>
 
-    <footer>
-        <div class="disclaimer-text">
-            <p><strong>IMPORTANT FINANCIAL NOTICE:</strong> Prime Sanctum & Savings is not a standard banking corporation. Midas Prime retains structural rights to alter defaulting users' transit vehicles into dense 24k gold. Review all options prior to signature submission.</p>
-            <p style="margin-top: 2rem; text-align: center; color: #444;">© 2026 Prime Sanctum & Savings Inc. // Heaven's Will Be Done.</p>
-        </div>
-    </footer>
-
-    <audio id="escape-sound" src="you_cant_escape.mp3"></audio>
-    <audio id="begone-sound" src="be_gone.mp3"></audio>
-    <audio id="judgment-sound" src="judgment.mp3"></audio>
-    <audio id="useless-sound" src="useless.mp3"></audio>
-    <audio id="thy-end-sound" src="thy_end_is_now.mp3"></audio>
-
     <script>
-        const escapeSound = document.getElementById('escape-sound');
-        const begoneSound = document.getElementById('begone-sound');
-        const judgmentSound = document.getElementById('judgment-sound');
-        const uselessSound = document.getElementById('useless-sound');
-        const thyEndSound = document.getElementById('thy-end-sound');
-
         const portalContent = document.getElementById('portalContent');
         const auditPortalContent = document.getElementById('auditPortalContent');
         const captchaModal = document.getElementById('captchaModal');
-        const captchaBox = document.getElementById('captchaBox');
-        const captchaStatusIcon = document.getElementById('captchaStatusIcon');
-        const captchaPrompt = document.getElementById('captchaPrompt');
         const midasChatWindow = document.getElementById('midasChatWindow');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -593,257 +176,19 @@
         let selectedTiles = [];
         let currentDisputePath = true;
 
-        // --- SISYPHUS LOGIC ---
-        function triggerEscape() {
-            if (escapeSound) { escapeSound.currentTime = 0; escapeSound.play().catch(e => {}); }
-            alert("Sisyphus Prime says: YOU CAN'T ESCAPE!");
-        }
-
         function evaluateLoan(isEligible) {
             if (isEligible) {
-                portalContent.innerHTML = `
-                    <div class="result-screen pass">
-                        <h4>APPLICATION APPROVED</h4>
-                        <div class="quote" style="border-left: 3px solid var(--midas-gold);">"KEEP 'EM COMING!"</div>
-                    </div>`;
+                portalContent.innerHTML = '<div style="color:var(--midas-gold); padding:1rem; text-align:center;"><h4>APPLICATION APPROVED</h4><p>"KEEP EM COMING!"</p></div>';
             } else {
-                if (begoneSound) { begoneSound.currentTime = 0; begoneSound.play().catch(e => {}); }
-                portalContent.innerHTML = `
-                    <div class="result-screen fail">
-                        <h4>BE GONE!</h4>
-                    </div>`;
+                portalContent.innerHTML = '<div style="color:#ff4a4a; padding:1rem; text-align:center;"><h4>BE GONE!</h4></div>';
             }
-        }
-
-        // --- MINOS LOGIC & CAPTCHA ---
-        function triggerJudgmentSound() {
-            if (judgmentSound) { judgmentSound.currentTime = 0; judgmentSound.play().catch(e => {}); }
-            alert("Minos Prime says: THY CRIME IS EXISTENCE!");
-        }
-
-function openCaptcha(isRighteous) {
-            currentDisputePath = isRighteous;
-            selectedTiles = [];
-            document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-            if (captchaBox) captchaBox.style.border = "3px solid #333";
-            
-            // Bring it to the front layer and activate mouse clicks safely
-            if (captchaModal) {
-                captchaModal.style.setProperty('display', 'flex', 'important');
-                captchaModal.style.zIndex = "1000";
-                captchaModal.style.pointerEvents = "auto";
-            }
-        }
-
-        function toggleTile(element, index) {
-            if (selectedTiles.includes(index)) {
-                selectedTiles = selectedTiles.filter(i => i !== index);
-                element.classList.remove('selected');
-            } else {
-                selectedTiles.push(index);
-                element.classList.add('selected');
-            }
-        }
-
-function validateCaptcha() {
-            const requiredTiles = [0, 1, 2, 3, 5, 6, 7, 8];
-            const hasDecoy = selectedTiles.includes(4);
-            const isPerfectMatch = requiredTiles.every(t => selectedTiles.includes(t)) && !hasDecoy && selectedTiles.length === requiredTiles.length;
-
-            if (isPerfectMatch) {
-                if (captchaBox) captchaBox.style.border = "3px solid var(--minos-blue)";
-                setTimeout(() => {
-                    if (captchaModal) {
-                        captchaModal.style.setProperty('display', 'none', 'important');
-                        captchaModal.style.zIndex = "-9999";
-                        captchaModal.style.pointerEvents = "none";
-                    }
-                    processTribunalVerdict(currentDisputePath);
-                }, 800);
-            } else {
-                playAssetSound('useless-sound');
-                if (captchaBox) captchaBox.style.border = "3px solid #ff4a4a";
-                selectedTiles = [];
-                document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-                setTimeout(() => { 
-                    if (captchaModal) {
-                        captchaModal.style.setProperty('display', 'none', 'important');
-                        captchaModal.style.zIndex = "-9999";
-                        captchaModal.style.pointerEvents = "none";
-                    } 
-                }, 1500);
-            }
-        }
-        function processTribunalVerdict(isRighteous) {
-            if (isRighteous) {
-                if (thyEndSound) { thyEndSound.currentTime = 0; thyEndSound.play().catch(e => {}); }
-                auditPortalContent.innerHTML = `<div class="result-screen mercy"><h4>FEE WAIVED OUT OF MERCY</h4></div>`;
-            } else {
-                if (judgmentSound) { judgmentSound.currentTime = 0; judgmentSound.play().catch(e => {}); }
-                auditPortalContent.innerHTML = `<div class="result-screen fail"><h4>JUDGEMENT!</h4></div>`;
-            }
-        }
-
-        // --- DEEPSEEK CHATBOT INTERFACE LOGIC ---
-        function toggleMidasChat() {
-            if (midasChatWindow.style.display === "flex") {
-                midasChatWindow.style.display = "none";
-            } else {
-                midasChatWindow.style.display = "flex";
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                if (!getSavedApiKey()) {
-                    appendMessage("VAULT SHIELD ACTIVE: Secure DeepSeek Token (sk-...) required. Click the ⚙️ icon above to configure communication lines.", "system-status");
-                }
-            }
-        }
-
-        function handleChatKey(event) { 
-            if (event.key === 'Enter') sendMidasMessage(); 
-        }
-
-        function getSavedApiKey() { 
-            return localStorage.getItem('midas_hf_token'); 
-        }
-
-        function promptForApiKey() {
-            const token = prompt("Enter thy DeepSeek Secret API Key (sk-...):");
-            if (token) {
-                localStorage.setItem('midas_hf_token', token.trim());
-                appendMessage("CRITICAL CORRIDORS UNLOCKED. DeepSeek platform array online.", "system-status");
-            }
-        }
-
-async function sendMidasMessage() {
-            const text = chatInput.value.trim();
-            if (!text) return;
-
-            const apiKey = getSavedApiKey();
-            if (!apiKey) {
-                alert("Midas Prime commands: Supply a connection key via the configuration layout first!");
-                promptForApiKey();
-                return;
-            }
-
-            appendMessage(text, 'user');
-            chatInput.value = '';
-            
-            const thinkingBubble = document.createElement('div');
-            thinkingBubble.classList.add('msg', 'midas');
-            thinkingBubble.innerText = "Calculating liquidation liabilities...";
-            chatMessages.appendChild(thinkingBubble);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            chatSendBtn.disabled = true;
-
-try {
-                // Routed via the verified production model path
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `You are Midas Prime, the gold-obsessed Chief Financial Officer (CFO) from ULTRAKILL. You talk in an aggressive, grand corporate style. It seems you view people solely in terms of profit margins and asset liquidation. You love 24k solid gold and hate unbillable waste. Respond concisely (under 3 sentences) in character to this message: ${text}`
-                            }]
-                        }]
-                    })
-                });
-
-                const result = await response.json();
-                thinkingBubble.remove();
-
-                if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    let aiResponse = result.candidates[0].content.parts[0].text.trim();
-                    appendMessage(aiResponse, 'midas');
-                } else if (result.error) {
-                    appendMessage(`CORPORATE AUDIT ERROR: ${result.error.message}`, 'midas');
-                } else {
-                    appendMessage("Transmission corrupted. Financial analysis yielded zero returns.", 'midas');
-                }
-
-            } catch (err) {
-                thinkingBubble.remove();
-                appendMessage("PIPELINE EXPLODED. Verify thy Gemini key configuration or network throughput.", "midas");
-                console.error("Midas Error Ledger:", err);
-            }
-            } catch (err) {
-                thinkingBubble.remove();
-                appendMessage("PIPELINE EXPLODED. Verify thy Gemini key configuration or network throughput.", "midas");
-                console.error("Midas Error Ledger:", err);
-            } finally {
-                chatSendBtn.disabled = false;
-            }
-        }
-        function appendMessage(text, sender) {
-            const bubble = document.createElement('div');
-            bubble.classList.add('msg', sender);
-            bubble.innerText = text;
-            chatMessages.appendChild(bubble);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-<script>
-        // Safely check and handle audio assets without crashing the page
-        function playAssetSound(elementId) {
-            try {
-                const snd = document.getElementById(elementId);
-                if (snd && typeof snd.play === 'function') {
-                    snd.currentTime = 0;
-                    snd.play().catch(e => console.log("Audio play blocked or missing:", elementId));
-                }
-            } catch(err) {
-                console.log("Audio asset bypassed:", elementId);
-            }
-        }
-
-        const portalContent = document.getElementById('portalContent');
-        const auditPortalContent = document.getElementById('auditPortalContent');
-        const captchaModal = document.getElementById('captchaModal');
-        const captchaBox = document.getElementById('captchaBox');
-        const captchaStatusIcon = document.getElementById('captchaStatusIcon');
-        const midasChatWindow = document.getElementById('midasChatWindow');
-        const chatMessages = document.getElementById('chatMessages');
-        const chatInput = document.getElementById('chatInput');
-        const chatSendBtn = document.getElementById('chatSendBtn');
-
-        let selectedTiles = [];
-        let currentDisputePath = true;
-
-        // --- SISYPHUS LOGIC ---
-        function triggerEscape() {
-            playAssetSound('escape-sound');
-            alert("Sisyphus Prime says: YOU CAN'T ESCAPE!");
-        }
-
-        function evaluateLoan(isEligible) {
-            if (isEligible) {
-                portalContent.innerHTML = `
-                    <div class="result-screen pass">
-                        <h4>APPLICATION APPROVED</h4>
-                        <div class="quote" style="border-left: 3px solid var(--midas-gold);">"KEEP 'EM COMING!"</div>
-                    </div>`;
-            } else {
-                playAssetSound('begone-sound');
-                portalContent.innerHTML = `
-                    <div class="result-screen fail">
-                        <h4>BE GONE!</h4>
-                    </div>`;
-            }
-        }
-
-        // --- MINOS LOGIC & CAPTCHA ---
-        function triggerJudgmentSound() {
-            playAssetSound('judgment-sound');
-            alert("Minos Prime says: THY CRIME IS EXISTENCE!");
         }
 
         function openCaptcha(isRighteous) {
             currentDisputePath = isRighteous;
             selectedTiles = [];
             document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-            if (captchaBox) captchaBox.style.border = "3px solid #333";
-            if (captchaModal) captchaModal.style.display = "flex";
+            captchaModal.style.display = 'flex';
         }
 
         function toggleTile(element, index) {
@@ -859,60 +204,38 @@ try {
         function validateCaptcha() {
             const requiredTiles = [0, 1, 2, 3, 5, 6, 7, 8];
             const hasDecoy = selectedTiles.includes(4);
-            const isPerfectMatch = requiredTiles.every(t => selectedTiles.includes(t)) && !hasDecoy && selectedTiles.length === requiredTiles.length;
+            const isPerfect = requiredTiles.every(t => selectedTiles.includes(t)) && !hasDecoy && selectedTiles.length === requiredTiles.length;
 
-            if (isPerfectMatch) {
-                if (captchaBox) captchaBox.style.border = "3px solid var(--minos-blue)";
-                setTimeout(() => {
-                    if (captchaModal) captchaModal.style.display = "none";
-                    processTribunalVerdict(currentDisputePath);
-                }, 800);
+            captchaModal.style.display = 'none';
+            if (isPerfect) {
+                if (currentDisputePath) {
+                    auditPortalContent.innerHTML = '<div style="color:var(--minos-blue); text-align:center; padding:1rem;"><h4>FEE WAIVED BY ROYAL DECREE</h4></div>';
+                } else {
+                    auditPortalContent.innerHTML = '<div style="color:#ff4a4a; text-align:center; padding:1rem;"><h4>JUDGEMENT! ACCOUNT SEIZED</h4></div>';
+                }
             } else {
-                playAssetSound('useless-sound');
-                if (captchaBox) captchaBox.style.border = "3px solid #ff4a4a";
-                selectedTiles = [];
-                document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-                setTimeout(() => { if (captchaModal) captchaModal.style.display = "none"; }, 1500);
+                alert("USELESS. INTEGRITY PROTOCOL CRASHED.");
             }
         }
 
-        function processTribunalVerdict(isRighteous) {
-            if (isRighteous) {
-                playAssetSound('thy-end-sound');
-                auditPortalContent.innerHTML = `<div class="result-screen mercy"><h4>FEE WAIVED OUT OF MERCY</h4></div>`;
-            } else {
-                playAssetSound('judgment-sound');
-                auditPortalContent.innerHTML = `<div class="result-screen fail"><h4>JUDGEMENT!</h4></div>`;
-            }
-        }
-
-        // --- GEMINI CHATBOT INTERFACE LOGIC ---
         function toggleMidasChat() {
-            if (!midasChatWindow) return;
-            if (midasChatWindow.style.display === "flex") {
-                midasChatWindow.style.display = "none";
+            if (midasChatWindow.style.display === 'flex') {
+                midasChatWindow.style.display = 'none';
             } else {
-                midasChatWindow.style.display = "flex";
+                midasChatWindow.style.display = 'flex';
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                if (!getSavedApiKey()) {
-                    appendMessage("VAULT SHIELD ACTIVE: Secure Gemini Token (AIzaSy...) required. Click the ⚙️ icon above to configure communication lines.", "system-status");
+                if (!localStorage.getItem('midas_gemini_key')) {
+                    appendMessage("VAULT LOCKED: Provide Gemini API Token (AIzaSy...) by hitting the ⚙️ array tool above.", "system-status");
                 }
             }
         }
 
-        function handleChatKey(event) { 
-            if (event.key === 'Enter') sendMidasMessage(); 
-        }
-
-        function getSavedApiKey() { 
-            return localStorage.getItem('midas_hf_token'); 
-        }
-
+        function handleChatKey(e) { if (e.key === 'Enter') sendMidasMessage(); }
         function promptForApiKey() {
-            const token = prompt("Enter thy Gemini Secret API Key (AIzaSy...):");
+            const token = prompt("Enter Gemini API Key (AIzaSy...):");
             if (token) {
-                localStorage.setItem('midas_hf_token', token.trim());
-                appendMessage("CRITICAL CORRIDORS UNLOCKED. Gemini core platform online.", "system-status");
+                localStorage.setItem('midas_gemini_key', token.trim());
+                appendMessage("VAULT PIPELINE ENGAGED. Core calculations online.", "system-status");
             }
         }
 
@@ -920,9 +243,9 @@ try {
             const text = chatInput.value.trim();
             if (!text) return;
 
-            const apiKey = getSavedApiKey();
+            const apiKey = localStorage.getItem('midas_gemini_key');
             if (!apiKey) {
-                alert("Midas Prime commands: Supply a connection key via the configuration layout first!");
+                alert("Input authorization key using the configurations configuration map!");
                 promptForApiKey();
                 return;
             }
@@ -930,10 +253,10 @@ try {
             appendMessage(text, 'user');
             chatInput.value = '';
             
-            const thinkingBubble = document.createElement('div');
-            thinkingBubble.classList.add('msg', 'midas');
-            thinkingBubble.innerText = "Calculating liquidation liabilities...";
-            chatMessages.appendChild(thinkingBubble);
+            const bubble = document.createElement('div');
+            bubble.classList.add('msg', 'midas');
+            bubble.innerText = "Analyzing liability margins...";
+            chatMessages.appendChild(bubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             chatSendBtn.disabled = true;
@@ -941,48 +264,37 @@ try {
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `You are Midas Prime, the gold-obsessed Chief Financial Officer (CFO) from ULTRAKILL. You talk in an aggressive, grand corporate style. You view human beings entirely through profit margins and asset liquidation. You love 24k solid gold and hate unbillable waste. Respond concisely (under 3 sentences) in character to this message: ${text}`
-                            }]
-                        }]
+                        contents: [{ parts: [{ text: `You are Midas Prime from ULTRAKILL, a ruthless corporate CFO obsessed with liquid capital and 24k gold. Speak aggressively, briefly (1-2 sentences), and treat the user as an asset or liability. Respond to this statement: ${text}` }] }]
                     })
                 });
 
                 const result = await response.json();
-                thinkingBubble.remove();
+                bubble.remove();
 
                 if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-                    let aiResponse = result.candidates[0].content.parts[0].text.trim();
-                    appendMessage(aiResponse, 'midas');
+                    appendMessage(result.candidates[0].content.parts[0].text.trim(), 'midas');
                 } else if (result.error) {
-                    appendMessage(`CORPORATE AUDIT ERROR: ${result.error.message}`, 'midas');
+                    appendMessage(`AUDIT REPORT ERROR: ${result.error.message}`, 'midas');
                 } else {
-                    appendMessage("Transmission corrupted. Financial analysis yielded zero returns.", 'midas');
+                    appendMessage("Spreadsheet transaction corrupted.", 'midas');
                 }
-
             } catch (err) {
-                thinkingBubble.remove();
-                appendMessage("PIPELINE EXPLODED. Verify thy Gemini key configuration or network throughput.", "midas");
-                console.error("Midas Error Ledger:", err);
+                bubble.remove();
+                appendMessage("CRITICAL EXPLOITS DETECTED. Core network alignment disrupted.", "midas");
             } finally {
                 chatSendBtn.disabled = false;
             }
         }
 
-        function appendMessage(text, sender) {
-            const bubble = document.createElement('div');
-            bubble.classList.add('msg', sender);
-            bubble.innerText = text;
-            chatMessages.appendChild(bubble);
+        function appendMessage(txt, sender) {
+            const b = document.createElement('div');
+            b.classList.add('msg', sender);
+            b.innerText = txt;
+            chatMessages.appendChild(b);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     </script>
 </body>
 </html>
-
-``
