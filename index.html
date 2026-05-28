@@ -245,14 +245,16 @@
         .result-screen.mercy h4 { color: var(--minos-blue); }
 
         /* --- CAPTCHA POPUP MODAL STYLING --- */
-        .captcha-modal {
-            display: none;
+      .captcha-modal {
+            display: none !important; /* Force it to completely vanish from the layer stack */
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.85);
-            z-index: 1000;
+            z-index: -9999; /* Push it completely behind the website pages by default */
             justify-content: center;
             align-items: center;
+            pointer-events: none; /* Make it completely transparent to mouse clicks */
         }
 
         .captcha-box {
@@ -619,13 +621,18 @@
             alert("Minos Prime says: THY CRIME IS EXISTENCE!");
         }
 
-        function openCaptcha(isRighteous) {
+function openCaptcha(isRighteous) {
             currentDisputePath = isRighteous;
             selectedTiles = [];
             document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-            captchaBox.style.border = "3px solid #333";
-            captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(5).png";
-            captchaModal.style.display = "flex";
+            if (captchaBox) captchaBox.style.border = "3px solid #333";
+            
+            // Bring it to the front layer and activate mouse clicks safely
+            if (captchaModal) {
+                captchaModal.style.setProperty('display', 'flex', 'important');
+                captchaModal.style.zIndex = "1000";
+                captchaModal.style.pointerEvents = "auto";
+            }
         }
 
         function toggleTile(element, index) {
@@ -638,28 +645,35 @@
             }
         }
 
-        function validateCaptcha() {
+function validateCaptcha() {
             const requiredTiles = [0, 1, 2, 3, 5, 6, 7, 8];
             const hasDecoy = selectedTiles.includes(4);
             const isPerfectMatch = requiredTiles.every(t => selectedTiles.includes(t)) && !hasDecoy && selectedTiles.length === requiredTiles.length;
 
             if (isPerfectMatch) {
-                captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(4).png";
-                captchaBox.style.border = "3px solid var(--minos-blue)";
+                if (captchaBox) captchaBox.style.border = "3px solid var(--minos-blue)";
                 setTimeout(() => {
-                    captchaModal.style.display = "none";
+                    if (captchaModal) {
+                        captchaModal.style.setProperty('display', 'none', 'important');
+                        captchaModal.style.zIndex = "-9999";
+                        captchaModal.style.pointerEvents = "none";
+                    }
                     processTribunalVerdict(currentDisputePath);
                 }, 800);
             } else {
-                if (uselessSound) { uselessSound.currentTime = 0; uselessSound.play().catch(e => {}); }
-                captchaStatusIcon.src = "https://file.garden/adLOry2aS3ylDKjJ/image%20(3).png";
-                captchaBox.style.border = "3px solid #ff4a4a";
+                playAssetSound('useless-sound');
+                if (captchaBox) captchaBox.style.border = "3px solid #ff4a4a";
                 selectedTiles = [];
                 document.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
-                setTimeout(() => { captchaModal.style.display = "none"; }, 1500);
+                setTimeout(() => { 
+                    if (captchaModal) {
+                        captchaModal.style.setProperty('display', 'none', 'important');
+                        captchaModal.style.zIndex = "-9999";
+                        captchaModal.style.pointerEvents = "none";
+                    } 
+                }, 1500);
             }
         }
-
         function processTribunalVerdict(isRighteous) {
             if (isRighteous) {
                 if (thyEndSound) { thyEndSound.currentTime = 0; thyEndSound.play().catch(e => {}); }
